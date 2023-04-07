@@ -9,6 +9,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk add --no-cache make=4.3-r1
             python3 -m venv .venv
             . .venv/bin/activate
             make install
@@ -30,6 +31,10 @@ jobs:
       - restore_cache:
           keys: [ "v1-dependencies-{{ checksum 'requirements.txt' }}" ]
       - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache make=4.3-r1
+      - run:
           name: Run SAST
           command: |
             . .venv/bin/activate
@@ -42,6 +47,10 @@ jobs:
       - checkout
       - restore_cache:
           keys: [ "v1-dependencies-{{ checksum 'requirements.txt' }}" ]
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache make=4.3-r1
       - run:
           name: Build Docker image and and Push to Registry
           command: |
