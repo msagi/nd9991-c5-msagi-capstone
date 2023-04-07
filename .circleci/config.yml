@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache make=4.3-r1
+            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
             python3 -m venv .venv
             . .venv/bin/activate
             make install
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache make=4.3-r1
+            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
       - run:
           name: Run SAST
           command: |
@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache make=4.3-r1
+            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
       - run:
           name: Build Docker image and and Push to Registry
           command: |
