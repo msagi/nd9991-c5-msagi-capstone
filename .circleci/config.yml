@@ -1,0 +1,72 @@
+version: 2.1
+
+jobs:
+  build-and-test: 
+    docker:
+      - image: python:3.11.3-alpine3.17
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            python3 -m venv .venv
+            . .venv/bin/activate
+            make install
+      - save_cache:
+          paths:
+              - .venv
+          key: v1-dependencies-{{ checksum 'requirements.txt' }}
+      - run:
+          name: Run tests
+          command: |
+            . .venv/bin/activate
+            make lint
+
+  static-application-security-testing:
+    docker:
+      - image: python:3.11.3-alpine3.17
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [ "v1-dependencies-{{ checksum 'requirements.txt' }}" ]
+      - run:
+          name: Run SAST
+          command: |
+            . .venv/bin/activate
+            make sast
+
+  build-docker-image:
+    docker:
+      - image: 23.0.3-cli-alpine3.17
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [ "v1-dependencies-{{ checksum 'requirements.txt' }}" ]
+      - run:
+          name: Build Docker image and and Push to Registry
+          command: |
+            make dockerimage
+
+workflows:
+  default:
+    jobs:
+      - build-and-test
+      - static-application-security-testing:
+          requires: [build-and-test]
+      - build-docker-image:
+          requires: [static-application-security-testing]
+#      - deploy-infrastructure:
+#          requires: [build-docker-image]
+#          filters:
+#            branches:
+#              only: [infra-branch]
+#      - configure-infrastructure:
+#          requires: [deploy-infrastructure]
+#      - deploy-app:
+#          requires: [configure-infrastructure]
+#      - smoke-test:
+#          requires: [deploy-backend, deploy-frontend]
+#      - cloudfront-update:
+#          requires: [smoke-test]
+#      - cleanup:
+#          requires: [cloudfront-update]
