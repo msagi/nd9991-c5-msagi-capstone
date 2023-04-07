@@ -1,3 +1,6 @@
+# Local bin folder for utils
+bin/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
