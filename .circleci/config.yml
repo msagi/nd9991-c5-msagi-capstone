@@ -43,7 +43,7 @@ jobs:
 
   build-docker-image:
     docker:
-      - image: docker/23.0.3-cli-alpine3.17
+      - image: docker:23.0.3-cli-alpine3.17
     steps:
       - checkout
       - restore_cache:
