@@ -1,0 +1,4 @@
+Flask==2.2.3
+flasgger==0.9.5
+pylint==2.17.2
+locust==2.15.1
