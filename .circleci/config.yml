@@ -50,12 +50,10 @@ workflows:
       - build-and-test
       - static-application-security-testing:
           requires: [build-and-test]
-      - build-docker-image:
-          jobs:
-            - docker/publish:
-                image: msaginwm/msagi-capstone
-                tag: msaginwm/msagi-capstone:v1.0.1
+      - docker/publish:
           requires: [static-application-security-testing]
+          image: msaginwm/msagi-capstone
+          tag: msaginwm/msagi-capstone:v1.0.1
 #      - deploy-infrastructure:
 #          requires: [build-docker-image]
 #          filters:
