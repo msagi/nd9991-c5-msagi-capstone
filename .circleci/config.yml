@@ -44,14 +44,6 @@ jobs:
             . .venv/bin/activate
             make sast
 
-  build-docker-image:
-    executor: docker/docker
-    steps:
-      - checkout
-      - docker/publish:
-          image: msaginwm/msagi-capstone
-          tag: msaginwm/msagi-capstone:v1.0.1
-
 workflows:
   default:
     jobs:
@@ -59,6 +51,10 @@ workflows:
       - static-application-security-testing:
           requires: [build-and-test]
       - build-docker-image:
+          jobs:
+            - docker/publish:
+                image: msaginwm/msagi-capstone
+                tag: msaginwm/msagi-capstone:v1.0.1
           requires: [static-application-security-testing]
 #      - deploy-infrastructure:
 #          requires: [build-docker-image]
