@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.2.0
+
 jobs:
   build-and-test: 
     docker:
@@ -42,21 +45,12 @@ jobs:
             make sast
 
   build-docker-image:
-    docker:
-      - image: docker:23.0.3-git
+    executor: docker/docker
     steps:
       - checkout
-      - restore_cache:
-          keys: 
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
-      - run:
-          name: Build Docker image and and Push to Registry
-          command: |
-            make dockerimage
+      - docker/publish:
+          image: msaginwm/msagi-capstone
+          tag: msaginwm/msagi-capstone:v1.0.1
 
 workflows:
   default:
