@@ -53,7 +53,7 @@ workflows:
       - docker/publish:
           requires: [static-application-security-testing]
           image: msaginwm/msagi-capstone
-          tag: msaginwm/msagi-capstone:v1.0.1
+          tag: v1.0.1
 #      - deploy-infrastructure:
 #          requires: [build-docker-image]
 #          filters:
