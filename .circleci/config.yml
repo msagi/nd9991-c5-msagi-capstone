@@ -13,16 +13,18 @@ jobs:
           name: Install dependencies
           command: |
             apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
+            cd application
             python3 -m venv .venv
             . .venv/bin/activate
             make install
       - save_cache:
           paths:
-              - .venv
+              - application/.venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Run tests
           command: |
+            cd application
             . .venv/bin/activate
             make lint
 
@@ -41,6 +43,7 @@ jobs:
       - run:
           name: Run SAST
           command: |
+            cd application
             . .venv/bin/activate
             make sast
 
@@ -52,6 +55,7 @@ workflows:
           requires: [build-and-test]
       - docker/publish:
           requires: [static-application-security-testing]
+          path: application
           image: msaginwm/msagi-capstone
           tag: v1.0.1
 #      - deploy-infrastructure:

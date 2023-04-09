@@ -1,0 +1,50 @@
+[
+	{
+		"ParameterKey": "EksClusterName",
+		"ParameterValue": "msagi-eks-cluster"
+	},
+	{
+		"ParameterKey": "EksVersion",
+		"ParameterValue": "1.25"
+	},
+	{
+		"ParameterKey": "EksKeyPair",
+		"ParameterValue": "msagi-eks-key"
+	},
+	{
+		"ParameterKey": "EksWorkerNodeInstanceType",
+		"ParameterValue": "t3.micro"
+	},
+	{
+		"ParameterKey": "EksNodeGroupMinSize",
+		"ParameterValue": "1"
+	},
+	{
+		"ParameterKey": "EksNodeGroupDesiredSize",
+		"ParameterValue": "2"
+	},
+	{
+		"ParameterKey": "EksNodeGroupMaxSize",
+		"ParameterValue": "3"
+	},
+	{
+		"ParameterKey": "VpcBlock",
+		"ParameterValue": "10.0.0.0/16"
+	}, 
+	{
+		"ParameterKey": "PublicSubnet01Block",
+		"ParameterValue": "10.0.1.0/24"
+	},
+	{
+		"ParameterKey": "PublicSubnet02Block",
+		"ParameterValue": "10.0.2.0/24"
+	},
+	{
+		"ParameterKey": "PrivateSubnet01Block",
+		"ParameterValue": "10.0.3.0/24"
+	}, 
+	{
+		"ParameterKey": "PrivateSubnet02Block",
+		"ParameterValue": "10.0.4.0/24"
+	}
+]
