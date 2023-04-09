@@ -55,6 +55,7 @@ workflows:
           requires: [build-and-test]
       - docker/publish:
           requires: [static-application-security-testing]
+          path: application
           docker-context: application
           image: msaginwm/msagi-capstone
           tag: v1.0.1
