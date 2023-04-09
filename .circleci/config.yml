@@ -60,13 +60,12 @@ jobs:
 
   deploy-workload:
     docker:
-      - image: alpine:3.17.3
+      - image: alpine/k8s:1.26.3
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache kubectl=1.26.1-r3
             apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
       - run:
           name: Deploy Workload
