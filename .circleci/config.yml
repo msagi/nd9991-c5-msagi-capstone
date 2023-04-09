@@ -47,6 +47,17 @@ jobs:
             cd application
             make sast
 
+  deploy-infrastructure:
+    docker:
+      - image: cimg/aws:2023.04
+    steps:
+      - checkout
+      - run:
+          name: Deploy infrastructure
+          command: |
+            cd infrastructure
+            ./deploy-infrastructure.sh
+
 workflows:
   default:
     jobs:
@@ -59,8 +70,8 @@ workflows:
           docker-context: application
           image: msaginwm/msagi-capstone
           tag: v1.0.1
-#      - deploy-infrastructure:
-#          requires: [build-docker-image]
+      - deploy-infrastructure:
+          requires: [docker/publish]
 #          filters:
 #            branches:
 #              only: [infra-branch]
