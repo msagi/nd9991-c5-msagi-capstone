@@ -58,6 +58,22 @@ jobs:
             cd infrastructure
             ./deploy-infrastructure.sh
 
+  deploy-workload:
+    docker:
+      - image: alpine:3.17.3
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache kubectl=1.26.1-r3
+            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
+      - run:
+          name: Deploy Workload
+          command: |
+            cd application
+            make deploy
+
 workflows:
   default:
     jobs:
@@ -75,10 +91,8 @@ workflows:
 #          filters:
 #            branches:
 #              only: [infra-branch]
-#      - configure-infrastructure:
-#          requires: [deploy-infrastructure]
-#      - deploy-app:
-#          requires: [configure-infrastructure]
+      - deploy-workload:
+          requires: [deploy-infrastructure]
 #      - smoke-test:
 #          requires: [deploy-backend, deploy-frontend]
 #      - cloudfront-update:

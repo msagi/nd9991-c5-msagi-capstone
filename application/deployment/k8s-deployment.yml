@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msagi-capstone-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 100%
+  selector:
+    matchLabels:
+      app: msagi-capstone-app
+  template:
+    metadata:
+      labels:
+        app: msagi-capstone-app
+    spec:
+      affinity:
+        # ⬇⬇⬇ This ensures pods will land on separate hosts
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions: [{ key: app, operator: In, values: [hello] }]
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        # https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container      
+        - name: msagi-capstone
+          image: msaginwm/msagi-capstone:v1.0.1
+          ports:
+            - containerPort: 8080 # Number of port to expose on the pod's IP address.
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
+      terminationGracePeriodSeconds: 1

@@ -29,4 +29,13 @@ dockerimage:
 	docker build -t ${docker_path}:${app_version} .
 	docker push ${docker_path}:${app_version}
 
+deploy:
+	kubectl apply -f ./deployment/k8s-deployment.yml
+	kubectl describe deployment msagi-capstone-app
+	kubectl apply -f ./deployment/k8s-service.yml
+	kubectl describe service msagi-capstone-app
+	kubectl apply -f ./deployment/k8s-autoscaler.yml
+	kubectl get pods -o wide
+	# kubectl port-forward service/msagi-capstone-app 8000:8000
+
 all: install lint test
