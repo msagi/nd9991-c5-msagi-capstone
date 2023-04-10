@@ -67,6 +67,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apt update
+            apt install snapd
             snap install kubectl --classic
       - run:
           name: Create kubeconfig
@@ -80,7 +82,28 @@ jobs:
             cd application
             make deploy
   
-#  smoke-test:
+  smoke-test:
+    docker:
+      - image: cimg/aws:2023.04
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            apt update
+            apt install snapd
+            snap install kubectl --classic
+      - run:
+          name: Smoke test - health check 
+          command: |
+            eksElbHostName=$(kubectl get svc app-shark -o jsonpath='{.status.loadBalancer.ingress[*].hostname}')
+            echo "EKS (ELB) host name: ${eksElbHostName}"
+            if curl "http://${eksElbHostName}/api/status" | grep "OK"
+            then
+              exit 0
+            else
+              exit 1
+            fi
 
 
 workflows:
@@ -102,5 +125,5 @@ workflows:
 #              only: [infra-branch]
       - deploy-workload:
           requires: [deploy-infrastructure]
-#      - smoke-test:
-#         requires: [deploy-workload]
+      - smoke-test:
+         requires: [deploy-workload]

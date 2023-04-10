@@ -26,12 +26,12 @@ def root():
     return redirect("/apidocs")
 
 
-@app.route('/status')
+@app.route('/api/status')
 def healthcheck():
     """Return health check status.
 
 
-        GET /status
+        GET /api/status
         ---
         responses:
             200:
