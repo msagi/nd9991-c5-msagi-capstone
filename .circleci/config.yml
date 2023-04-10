@@ -6,13 +6,12 @@ orbs:
 jobs:
   build-and-test: 
     docker:
-      - image: python:3.11.3-alpine3.17
+      - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
             python3 -m venv .venv
             . .venv/bin/activate
             cd application
@@ -30,16 +29,12 @@ jobs:
 
   static-application-security-testing:
     docker:
-      - image: python:3.11.3-alpine3.17
+      - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
       - restore_cache:
           keys: 
             - v1-dependencies-{{ checksum "application/requirements.txt" }}
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
       - run:
           name: Run SAST
           command: |
@@ -49,7 +44,7 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      - image: cimg/aws:2023.04
+      - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
       - run:
@@ -61,15 +56,9 @@ jobs:
 
   deploy-workload:
     docker:
-      - image: cimg/aws:2023.04
+      - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            apt update
-            apt install snapd
-            snap install kubectl --classic
       - run:
           name: Create kubeconfig
           command: |
@@ -84,15 +73,9 @@ jobs:
   
   smoke-test:
     docker:
-      - image: cimg/aws:2023.04
+      - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            apt update
-            apt install snapd
-            snap install kubectl --classic
       - run:
           name: Smoke test - health check 
           command: |
