@@ -7,7 +7,7 @@ setup:
 
 install:
 	mkdir -p ./bin
-	wget -O ./bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+	curl https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -o ./bin/hadolint 
 	chmod +x ./bin/hadolint
 	pip install --no-cache-dir --upgrade pip==23.0.1 &&\
 		pip install --no-cache-dir bandit==1.7.5 pip-audit==2.5.4 &&\
