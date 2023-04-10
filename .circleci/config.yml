@@ -54,6 +54,7 @@ jobs:
       - checkout
       - run:
           name: Deploy infrastructure
+          no_output_timeout: 30m
           command: |
             cd infrastructure
             ./deploy-infrastructure.sh
