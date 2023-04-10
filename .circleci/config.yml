@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           paths:
               - .venv
-          key: v1-dependencies-{{ checksum "application/requirements.txt" }}
+          key: v2-dependencies-{{ checksum "application/requirements.txt" }}
       - run:
           name: Run tests
           command: |
@@ -34,7 +34,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v1-dependencies-{{ checksum "application/requirements.txt" }}
+            - v2-dependencies-{{ checksum "application/requirements.txt" }}
       - run:
           name: Run SAST
           command: |
