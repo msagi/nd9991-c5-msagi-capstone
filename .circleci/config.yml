@@ -79,9 +79,10 @@ jobs:
       - run:
           name: Smoke test - health check 
           command: |
-            eksElbHostName=$(kubectl get svc app-shark -o jsonpath='{.status.loadBalancer.ingress[*].hostname}')
-            echo "EKS (ELB) host name: ${eksElbHostName}"
-            if curl "http://${eksElbHostName}/api/status" | grep "OK"
+            eksElbHostName=$(kubectl get svc msagi-capstone-app -o jsonpath='{.status.loadBalancer.ingress[*].hostname}')
+            statusApiUrl="http://${eksElbHostName}:8080/api/status"
+            echo "EKS (ELB) host name: ${statusApiUrl}"
+            if curl "${statusApiUrl}" | grep "OK"
             then
               exit 0
             else
