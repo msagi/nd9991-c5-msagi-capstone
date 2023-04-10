@@ -86,7 +86,6 @@ jobs:
             # circleci custom docker images use user 'circleci' vs apline uses 'root'
             # so .kube folder needs moving to ~/
             mv /home/circleci/.kube ~/
-            make deploy
       - run:
           name: Deploy Workload
           command: |
