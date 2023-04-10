@@ -57,6 +57,15 @@ jobs:
           command: |
             cd infrastructure
             ./deploy-infrastructure.sh
+      - run:
+          name: Create kubeconfig
+          command: |
+            aws sts get-caller-identity
+            aws eks --region us-east-1 update-kubeconfig --name msagi-eks-cluster
+      - save_cache:
+          paths:
+              - ~/.kube
+          key: kubeconfig
 
   deploy-workload:
     docker:
@@ -67,9 +76,13 @@ jobs:
           name: Install dependencies
           command: |
             apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
+      - restore_cache:
+          keys: 
+            - kubeconfig
       - run:
           name: Deploy Workload
           command: |
+            kubectl get pods --all-namespaces
             cd application
             make deploy
 
