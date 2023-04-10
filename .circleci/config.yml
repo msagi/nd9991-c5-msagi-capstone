@@ -66,7 +66,7 @@ jobs:
       - save_cache:
           paths:
               - ~/.kube
-          key: kubeconfig
+          key: kubeconfig-{{ .BuildNum }}
 
   deploy-workload:
     docker:
@@ -79,7 +79,7 @@ jobs:
             apk add --no-cache build-base=0.5-r3 linux-headers=5.19.5-r0 make=4.3-r1
       - restore_cache:
           keys: 
-            - kubeconfig
+            - kubeconfig-{{ .BuildNum }}
       - run:
           name: Configure kubernetes
           command: |
@@ -92,6 +92,9 @@ jobs:
             kubectl get pods --all-namespaces
             cd application
             make deploy
+  
+#  smoke-test:
+
 
 workflows:
   default:
@@ -113,8 +116,4 @@ workflows:
       - deploy-workload:
           requires: [deploy-infrastructure]
 #      - smoke-test:
-#          requires: [deploy-backend, deploy-frontend]
-#      - cloudfront-update:
-#          requires: [smoke-test]
-#      - cleanup:
-#          requires: [cloudfront-update]
+#         requires: [deploy-workload]
