@@ -62,7 +62,6 @@ jobs:
       - run:
           name: Create kubeconfig
           command: |
-            aws sts get-caller-identity
             aws eks --region us-east-1 update-kubeconfig --name msagi-eks-cluster
       - run:
           name: Deploy Workload
@@ -76,6 +75,10 @@ jobs:
       - image: msaginwm/devsecops-base:2023.04
     steps:
       - checkout
+      - run:
+          name: Create kubeconfig
+          command: |
+            aws eks --region us-east-1 update-kubeconfig --name msagi-eks-cluster
       - run:
           name: Smoke test - health check 
           command: |
