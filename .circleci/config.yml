@@ -82,16 +82,7 @@ jobs:
       - run:
           name: Smoke test - health check 
           command: |
-            eksElbHostName=$(kubectl get svc msagi-capstone-app -o jsonpath='{.status.loadBalancer.ingress[*].hostname}')
-            statusApiUrl="http://${eksElbHostName}:8080/api/status"
-            echo "EKS (ELB) host name: ${statusApiUrl}"
-            if curl "${statusApiUrl}" | grep "OK"
-            then
-              exit 0
-            else
-              exit 1
-            fi
-
+            make smoketest
 
 workflows:
   default:

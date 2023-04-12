@@ -38,4 +38,8 @@ deploy:
 	kubectl get pods -o wide
 	# kubectl port-forward service/msagi-capstone-app 8000:8000
 
+smoketest:
+	./deployment/smoketest.sh
+
+
 all: install lint test

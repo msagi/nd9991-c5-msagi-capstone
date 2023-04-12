@@ -36,10 +36,10 @@ Parameters:
     
   EksVersion:
     Type: String
-    Default: "1.25"
+    Default: "1.26"
     AllowedValues: 
-      - "1.24"
       - "1.25"
+      - "1.26"
     Description: The desired version of your AWS EKS Cluster.
 
   EksKeyPair:
@@ -415,21 +415,3 @@ Resources:
         - !Ref PrivateSubnet01
         - !Ref PrivateSubnet02
     DependsOn: [EksCluster, EksNodeInstanceRole]
-
-Outputs:
-
-  SubnetIds:
-    Description: Subnets IDs in the VPC
-    Value: !Join [ ",", [ !Ref PublicSubnet01, !Ref PublicSubnet02, !Ref PrivateSubnet01, !Ref PrivateSubnet02 ] ]
-
-  SecurityGroups:
-    Description: Security group for the cluster control plane communication with worker nodes
-    Value: !Join [ ",", [ !Ref ControlPlaneSecurityGroup ] ]
-
-  VpcId:
-    Description: The VPC Id
-    Value: !Ref VPC
-
-  EksClusterRole:
-    Description: IAM role for EKS cluster
-    Value: !Ref EksClusterIamRole

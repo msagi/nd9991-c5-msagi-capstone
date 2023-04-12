@@ -5,7 +5,7 @@
 	},
 	{
 		"ParameterKey": "EksVersion",
-		"ParameterValue": "1.25"
+		"ParameterValue": "1.26"
 	},
 	{
 		"ParameterKey": "EksKeyPair",
