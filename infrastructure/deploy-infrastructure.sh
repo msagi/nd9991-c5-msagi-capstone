@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o xtrace
 
-stackName="msagi-capstone-stack"
+stackName="msagi-capstone-stack-v2"
 if [ -n "$1" ]; then
     $stackName=$1
 fi
