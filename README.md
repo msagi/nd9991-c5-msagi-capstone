@@ -1,8 +1,24 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/msagi/nd9991-c5-msagi-capstone/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/msagi/nd9991-c5-msagi-capstone/tree/main)
-# Capstone - Cloud DevOps
+# CI / CD pipeline to deploy simple Flask microservice app to AWS EKS cluster using CircleCI
 
 ## Scope
-Python Flask based microservices application dockerised and publish to centralised image repository (DockerHub), deployed to an AWS EKS cluster via CircleCI pipeline using rolling deployment.
+Python Flask based microservices application dockerised and published to centralised image repository (Docker Hub), deployed to an AWS EKS cluster via CircleCI pipeline using EKS rolling deployment.
+
+## Requirements
+- [CircleCI](https://circleci.com/)
+- [AWS](https://us-east-1.console.aws.amazon.com/) EKS (Kubernetes)
+- [Docker Hub](https://hub.docker.com/)
+- [msaginwm/devsecops-base:2023.04](https://hub.docker.com/repository/docker/msaginwm/devsecops-base/general) ([DevSecOps Docker image](https://github.com/msagi/devsecops-dockerimage))
+
+## Install
+- Download or clone this project
+- Push this project to your GitHub repository
+- Create a CricleCI account and set up the project (using the pipeline already defined in the [config.yml](.circleci/config.yml) file).
+- Add the AWS credentials as environment variables. Configure `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_DEFAULT_REGION` as CircleCI project or context environment variables as shown in the links provided for [project](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) or [context](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-context).
+
+## Usage
+- Run the Pipeline by pushing a new commit to the Git Hub repository or trigger the pipeline manually in the project’s GUI in CircleCI
+- To access the application APIs, copy the Load Balancer URL to your browser
 
 ## Pipeline steps
 - build-and-test: create a Python virtual environment then run hadolint (lint for Dockerfile) and pylint (lint for Python code).
