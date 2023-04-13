@@ -40,7 +40,7 @@ def healthcheck():
 
     """
     response = app.response_class(
-            response=json.dumps({"result":"OK"}),
+            response=json.dumps({"result":"OK", "message": "Hello, Miklos Sagi!"}),
             status=200,
             mimetype='application/json'
     )

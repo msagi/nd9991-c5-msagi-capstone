@@ -1,4 +1,4 @@
-app_version=v1.0.0
+app_version=v1.0.2
 app_name=msagi-capstone
 docker_path=msaginwm/${app_name}
 

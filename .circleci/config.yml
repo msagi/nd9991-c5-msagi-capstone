@@ -96,7 +96,7 @@ workflows:
           path: application
           docker-context: application
           image: msaginwm/msagi-capstone
-          tag: v1.0.1
+          tag: v1.0.2
       - deploy-infrastructure:
           requires: [docker/publish]
 #          filters:
