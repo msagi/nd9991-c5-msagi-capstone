@@ -1,4 +1,3 @@
-""" Capstone Project Application """
 from flask import Flask
 from flask import json
 from flask import jsonify

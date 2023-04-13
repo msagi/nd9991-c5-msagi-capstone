@@ -20,4 +20,5 @@ Python Flask based microservices application dockerised and publish to centralis
     - EC2 instances [screenshot1](documentation/SCREENSHOT-EC2-INSTANCES-101-1.png) [screenshot2](documentation/SCREENSHOT-EC2-INSTANCES-101-2.png) [screenshot3](documentation/SCREENSHOT-EC2-INSTANCES-101-3.png) 
 - Screenshots for release v1.0.2
     - EKS Workload [screenshot1](documentation/SCREENSHOT-WORKLOAD-102-1.png) [screenshot2](documentation/SCREENSHOT-WORKLOAD-102-2.png) [screenshot3](documentation/SCREENSHOT-WORKLOAD-102-3.png)
+    - EKS Elastic Load Balancer URL - Service Status API response [screenshot1](documentation/SCREENSHOT-WORKLOAD-102-4.png) 
     - EC2 instances [screenshot1](documentation/SCREENSHOT-EC2-INSTANCES-102-1.png) [screenshot2](documentation/SCREENSHOT-EC2-INSTANCES-102-2.png) [screenshot3](documentation/SCREENSHOT-EC2-INSTANCES-102-3.png) 
